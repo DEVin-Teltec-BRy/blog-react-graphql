@@ -4,11 +4,16 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+
+import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
+import { createClient } from "graphql-ws";
+
+const wsLink = new GraphQLWsLink(
+  createClient({
+    url: process.env.REACT_APP_GRAPHQL_API_SUB,
+  })
+);
 
 const client = new ApolloClient({
   uri: process.env.REACT_APP_GRAPHQL_API,
